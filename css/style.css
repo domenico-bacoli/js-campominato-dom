@@ -93,6 +93,10 @@ h2{
     color: white;
 }
 
+.card-square.bomb{
+    background-color: brown;
+}
+
 .main-container{
     display: flex;
     flex-direction: column;
