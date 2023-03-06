@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: sans-serif;
+}
+
+.container{
+    height: 100vh;
+}
+
+nav{
+    display: flex;
+    height: 70px;
+}
+
+.nav-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.logo-image{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-image span{
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.right-link{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+#play-button, select{
+    background-color: rgb(228, 228, 228);
+    padding: 8px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.choose-level span{
+    padding-right: 10px;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(123, 255, 214);
+    height: calc(100vh - 70px);
+}
+
+h2{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+ #card-grid{
+    
+    display: none;
+    flex-flow: row wrap;
+    gap: 10px;
+    width: 600px;
+    height: 600px;
+    background-color: rgba(200, 200, 200, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.card-square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.card-square.square-selected{
+    background-color: rgb(47, 133, 238);
+    color: white;
+}
