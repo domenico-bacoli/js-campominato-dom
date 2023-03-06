@@ -32,6 +32,9 @@ const levelEl = document.getElementById("level");
 const gameResultEl = document.getElementById("game-result");
 const bombs = [];
 
+isGameOver = false;
+isWin = 0;
+
 
 playButtonEl.addEventListener("click", function(){
     standardTextEl.innerHTML = "";
@@ -43,10 +46,6 @@ playButtonEl.addEventListener("click", function(){
         //rimuovo il contenuto della griglia prima di rimpiazzarlo con la nuova difficoltà
         cardGridEl.innerHTML = "";
         createSquareElementLoop(101, 10, 10, 9);
-        let newCheckedElement;
-        if(newCheckedElement >= 84){
-            gameResultEl.innerHTML = "complimenti";
-        }
         
     //Se la difficoltà è uguale a medium allora cambia 
     } else if (difficult == "medium") {
@@ -59,8 +58,6 @@ playButtonEl.addEventListener("click", function(){
         //rimuovo il contenuto della griglia prima di rimpiazzarlo con la nuova difficoltà
         cardGridEl.innerHTML = "";
         createSquareElementLoop(50, 7, 7, 6);
-
-        
     }
 });
 
@@ -69,7 +66,7 @@ playButtonEl.addEventListener("click", function(){
 //__________FUNZIONI___________
 
 //Funzione per la creazione di un elemento div con classe square
-function createSquareElement(squareText, columnRowNumber, columnRowNumber, cardSpace ) {
+function createSquareElement(squareText, columnRowNumber, columnRowNumber, cardSpace) {
     
     let newElement = document.createElement("div");
     newElement.classList.add("card-square");
@@ -84,44 +81,43 @@ function createSquareElement(squareText, columnRowNumber, columnRowNumber, cardS
 //Funzione per la stabilire il numero di iterazioni che andranno a gestire la creazione dei quadrati
 function createSquareElementLoop(numberOfSquare, columnRowNumber, columnRowNumber, cardSpace) {
 
-    isWin = 0;
 
     for (let i = 1; i < numberOfSquare; i++){
         const newElement = createSquareElement(i, columnRowNumber, columnRowNumber, cardSpace);
 
-        isGameOver = false;
         newElement.addEventListener("click", function(){
         
-        randomBombs(16, 1, 49);
-        
-        if (isGameOver) {
-            return;   
-        }
-        
-        for( let n = 0; n < bombs.length; n++){
-            //se il numero premuto è presente nei numeri random(e quindi è una bomba)
-            if ( i == bombs[n]){
-                newElement.style.backgroundColor = "brown"; 
-                gameResultEl.innerHTML = "Hai colpito una bomba! Partita terminata";
-                isGameOver = true;
+            randomBombs(16, 1, (numberOfSquare - 1));
+           
+            if (isGameOver) {
+                return;   
+            }
+            
+            bombIsNotClicked = true;
 
-            } else {
-                
+            for( let n = 0; n < bombs.length; n++){
+                //se il numero premuto è presente nei numeri random(e quindi è una bomba)
+                if ( i == bombs[n]){
+                    newElement.style.backgroundColor = "brown"; 
+                    gameResultEl.innerHTML = `Hai colpito una bomba! Partita terminata! Il tuo punteggio è: ${isWin}`;
+                    isGameOver = true;
+                    bombIsNotClicked = false;
+                    isWin++
+                } 
+            }
+
+            if (bombIsNotClicked) {
                 newElement.classList.add("square-selected");
                 isWin++
 
-                if(isWin === (numberOfSquare - bombs.length) ) {
-                    gameResultEl.innerHTML = "Complimenti";
-                    console.log("ciao");
-                    
+                if(isWin === (numberOfSquare - bombs.length) - 1) {
+                    gameResultEl.innerHTML = "Complimenti Hai evitato tutte le bombe! HAI VINTO";  
+
                 }
             }
-        
-        }
         });
     }
 }
-
 
 // Generare un Numero random 
   function randomBombs(quantity, min, max) {

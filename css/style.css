@@ -92,3 +92,13 @@ h2{
     background-color: rgb(47, 133, 238);
     color: white;
 }
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+#game-result{
+    padding: 20px 0;
+}
